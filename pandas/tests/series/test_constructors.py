@@ -1388,10 +1388,14 @@ class TestSeriesConstructors:
         )
         tm.assert_series_equal(result, expected)
 
-    def test_dict_np_nan_equals_floatnan(self):
+    def test_index_float_nan_equals_np_nan(self):
+        result = Series(index=[float("nan")])
+        expected = Series(index=[np.nan])
+        tm.assert_series_equal(result, expected)
+
         d = {np.nan: 1}
         result = Series(d, index=[float("nan")])
-        expected = Series(d)
+        expected = Series([1], index=[np.nan])
         tm.assert_series_equal(result, expected)
 
     def test_constructor_dict_datetime64_index(self):
